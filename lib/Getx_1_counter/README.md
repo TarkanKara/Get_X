@@ -1,5 +1,5 @@
 ## Counter App with GetX
-1. MaterialApp i GetMaterialApp ile saralım
+1. MaterialApp i GetMaterialApp ile değiştirelim.
 
 ```dart
 dependencies:
@@ -15,7 +15,7 @@ dependencies:
 * **GetMaterialApp** rotalar **(necessary for routes),** snackbar'lar **(snackbars),** **bottomSheets,** **dialogs,** **rotalar** ve **üst düzey api'ler** için gereklidir.
 *  Yalnızca rota yönetimini **(Get.to(), Get.back() vb.)** kullanacaksanız GetMaterialApp gereklidir.
 
-2. **Business logic class** ı oluşturalım. Tüm **variables,** **methods** ve **controller** i yerleştirelim. Basit bir **".obs"** kullanarak herhangi bir değişkeni (variables) gözlemlenebilir hale getirebilirsiniz.
+2. **[Business logic class](https://github.com/TarkanKara/Get_X/blob/master/lib/Getx_1_counter/controller.dart)** ı oluşturalım. Tüm **variables,** **methods** ve **controller** i yerleştirelim. Basit bir **".obs"** kullanarak herhangi bir değişkeni (variables) gözlemlenebilir hale getirebilirsiniz.
 
 ```dart
 class Controller extends GetxController{
@@ -25,13 +25,13 @@ class Controller extends GetxController{
 ```
 
 3. StatelessWidget'ı kullanın ve biraz RAM den tasaruf sağlayalım, **GetX** ile artık **StatefulWidget** kullanmanıza gerek kalmayabilir. 
-* controller adında bir değişkeni Controller sndan oluşturarak. Controller sınıfındaki özellikleri **Get.put()** kullanarak tüm sayfalarımızda kullanabilelim.
+* controller adında bir değişkeni Controller sınıfından oluşturarak. Controller sınıfındaki özellikleri **Get.put()** kullanarak tüm sayfalarımızda kullanabilelim.
 
 ```dart
 final Controller controller = Get.put(Controller());
 ```
 
-4. Sayı her değiştiğinde Text i güncellemek için **Obx()** kullanalım.
+4. Sayı her değiştiğinde Text i güncellemek için **[Obx()](https://github.com/TarkanKara/Get_X/blob/master/lib/Getx_1_counter/home_page.dart)** kullanalım.
 
 ```dart
 Obx(() => Text("Tıklanma : ${controller.count}"))
@@ -62,6 +62,9 @@ floatingActionButton: FloatingActionButton(
 ```dart
 final Controller controller = Get.find();
 ```
+:stuck_out_tongue_winking_eye:
+
+8. Get is not for everyone, but if you identified with that phrase, Get is for you!
 
 
 

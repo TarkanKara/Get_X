@@ -34,7 +34,7 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Diğer syafalardan conroller sınıfının özelliklerine erişebilme
+    //Diğer syafalardan controller sınıfının özelliklerine erişebilme
     final Controller controller = Get.find();
     return Scaffold(
       appBar: AppBar(
