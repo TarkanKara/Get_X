@@ -140,6 +140,7 @@ final user = User().obs;
   * Stateless widgette bir durumu güncellemek için GetBuilder ile sarmalamamız gerekecek.
   * **GetBuilder,** tıpkı StatefulWidget gibi **"initState"** özelliğine sahiptir
   * GetBuilder ayrıca, dispose özelliğine de sahiptir
+  * TickerProviderStateMixin gibi bir mixin kullanmanız gerekmiyorsa, Get ile bir StatefulWidget kullanmak tamamen gereksiz olacaktır.
 
 ```dart
 class Controller extends GetxController {
@@ -163,6 +164,109 @@ class OtherClass extends StatelessWidget {
     );
   }
 ```
+
+## [Route Management](https://chornthorn.github.io/getx-docs/route-management/index)
+* GetX ile route, snackbar, dialog, bottomsheet gibi bileşenleri context'e ihtiyaç duymadan kolay bir şekilde kullanabilirsiniz. 
+* Öncelikle MaterialApp widge'ti yerine **GetMaterialApp** kullanıyoruz. Çünkü GetX ile gelen state ve route özelliklerini kullanmak için gereklidir.
+* Yeni ekrana gitmek için:
+
+```dart
+Get.to(NextScreen());
+```
+* Route name kullanarak sayfa geçişi için:
+
+```dart
+Get.toNamed('/details');
+```
+* Snackbar, dialog, bottomsheet veya normalde Navigator.pop(context) ile kapatacağınız herhangi bir şeyi kapatmak için:
+
+```dart
+Get.back();
+```
+* Bir sonraki ekrana gitmek ve önceki ekrana geri dönme seçeneğinin olmaması. Yani bir önceki ekranı state'den kaldırmak için (Mesela login ekranında giriş yapıldıktan sonra tekrar geri gelip login ekranına gidilmesini engellemek için):
+
+```dart
+Get.off(NextScreen());
+```
+* Bir sonraki ekrana gitmek ve önceki tüm rotaları iptal etmek için:
+
+```dart
+Get.offAll(NextScreen());
+```
+
+## [Dependency Management](https://chornthorn.github.io/getx-docs/dependency-management/index)
+* **Dependency Injection (Bağımlılık Enjeksiyonu),** bir class'ın instance'sini diğerine enjekte etme tekniğidir.
+* Farklı değişkenleri ve yöntemleri farklı sınıflara yerleştirebilir ve bunların birbirine bağımlı olmamasını sağlayabiliriz. 
+
+```dart
+Controller controller = Get.put(Controller());
+```
+* **Get.put**, bağımlılığı tüm alt yollar için kullanılabilir hale getirir. Dolayısıyla aynı instance'a başka bir sınıfta erişmemiz gerekirse **Get.find** kullanarak yapabiliriz:
+
+```dart
+class HomePage extends StatelessWidget {
+  Controller myController = Get.put(Controller());
+}
+class SecondPage extends StatelessWidget {
+  Controller myController = Get.find(); // bu şekilde
+}
+```
+## [Bindings](https://chornthorn.github.io/getx-docs/dependency-management/binding)
+* **Bindings,** bağımlılıklarımızı bildirebileceğimiz ve ardından onları route'lara **"bindings"** edebileceğimiz (bağlayabileceğimiz) sınıflardır. 
+* Öncelikle Bindings sınıfını implement ederek başlıyoruz:
+
+```dart
+class HomeBinding implements Bindings {}
+```
+* Daha sonra bir metot oluşturup override ediyouz ve bağımlılıklarımızı buraya ekliyoruz
+
+```dart
+class HomeBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.put<Controller1>(Controller1());
+    Get.put<Controller2>(Controller2());
+  }
+}
+```
+* Ardından, bu bağımlılıkları route'larımıza"binding" edebiliriz:
+
+```dart
+GetMaterialApp( // getx kullandığımız için GetMaterialApp ile sarmaladık.
+  initialRoute: "/",
+  getPages: [
+    GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()), // buraya ekliyoruz
+  ],
+);
+Get.to(HomePage(), binding: HomeBinding()); //bu gibi
+Get.toNamed("/", binding: HomeBinding()); //veya bu gibi
+```
+* Ayrıca, uygulama başlar başlamaz bağımlılıkları oluşturmak için bir binding ayarlayabiliriz:
+
+```dart
+GetMaterialApp(
+  initialRoute: "/",
+  initialBinding: HomeBinding(),
+);
+```
+* Veya ayrı bir sınıf oluşturmadan **BindingBuilder()** ile binding'leri tanımlayabiliriz:
+
+```dart
+GetMaterialApp(
+  initialRoute: "/",
+  initialBinding: BindingsBuilder(() => {Get.put(Controller())}),
+);
+```
+* Artık bağımlılıklara erişmek için Get.find kullanabiliriz:
+
+```dart
+class HomePage extends StatelessWidget {
+  Controller controller = Get.find();
+}
+```
+
+
+
 
 
 
