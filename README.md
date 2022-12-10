@@ -37,3 +37,22 @@ dependencies:
   get: ^4.6.5
 ```
 
+## [State Management](https://chornthorn.github.io/getx-docs/state-management/index)
+* GetX, diğer durum yöneticileri gibi Streams veya ChangeNotifier'ı kullanmaz.
+* **Complexity:**
+  * GetX ile her event için bir sınıf tanımlamanız gerekmez, kod son derece temiz ve anlaşılırdır ve daha az yazarak çok daha fazlasını yaparsınız.
+* **No code generators:**
+  * Bazı state managers, minimum düzeyde okunabilir koda sahip olmak için kod oluşturuculara (code generators) güvenir.
+  * Bir değişkeni değiştirmek ve build_runner'ı çalıştırmak zorunda olmak verimsiz olabilir. Bekleme süresi uzun olabiliyor.
+  * GetX ile her şey reaktiftir ve hiçbir şey kod oluşturuculara (code generators) bağlı değildir,
+* **It does not depend on context:**
+  * Kelimenin tam anlamıyla hiçbir şey için veriyicontext e göre göndermeniz gerekmez.
+* **Granular control:**
+  * Çoğu state managers ChangeNotifier'a dayalıdır.
+  * ChangeNotifier, notifyListeners çağrıldığında ona bağlı olan tüm widget'ları bilgilendirir.
+  * Bir ekranda ChangeNotifier sınıfınızın bir değişkenine sahip 40 widget'ınız varsa, birini güncellediğinizde tümü yeniden oluşturulur.
+  * GetX ile iç içe geçmiş widget'lara bile saygı duyulur.
+* **It only reconstructs if its variable REALLY changes:**
+
+## [Reactive State Manager](https://chornthorn.github.io/getx-docs/state-management/reactive-state-manager/index)
+
