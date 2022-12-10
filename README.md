@@ -76,11 +76,55 @@ Obx(() => Text("${controller.hello_world}"));
 :bangbang:
 
 * **hello_world** adında bir değişken tanımladık ve değerinin **"Hello World"** olduğunu söyledik. ve **".obs"** ile değişkeni gözlenebilir olduğunu söyledik. bu değişkenin değeri önceki değeri ile aynı olduğu durumda ekranda hiçbir şey değişmeyecek ve **".obx"** yeni değeri yok sayar ve Widgetı yeniden oluşturmaz. **Isn't that amazing?** 
-* Peki, bir **Obx** içinde 5 Rx (gözlemlenebilir) değişkenim varsa ne olur?
+* **Peki, bir **Obx** içinde 5 Rx (gözlemlenebilir) değişkenim varsa ne olur?**
   * Sadece herhangi biri değiştiğinde güncellenecektir.
-* Ve bir sınıfta 30 değişkenim varsa, birini güncellediğimde, o sınıftaki tüm değişkenleri günceller mi?
+* **Ve bir sınıfta 30 değişkenim varsa, birini güncellediğimde, o sınıftaki tüm değişkenleri günceller mi?**
   * Hayır, yalnızca o Rx değişkenini kullanan belirli Widget.
   * Rx değişkeni değeri değiştirdiğinde günceller.
+  * Rx değişkeninin" durumunu dinleyebilirsiniz, çünkü içindeki her şey Streams.
+  * Kelimenin tam anlamıyla bir BLoC yaklaşımıdır, MobX'ten daha kolaydır ve code generators veya decorations yoktur. Sadece bir ".obs" ile her şeyi "Gözlemlenebilir" hale getirebilirsiniz.
+
+## Declaring a reactive variable
+* Bir değişkeni **observable** (gözlemlenebilir) hale getirmenin 3 yolu vardır.
+  1. İlki, **Rx{Type}** kullanmaktır.
+
+```dart
+//başlangıç ​​değeri önerilir, ancak zorunlu değildir.
+final name = RxString('');
+final isLogged = RxBool(false);
+final count = RxInt(0);
+final balance = RxDouble(0.0);
+final items = RxList<String>([]);
+final myMap = RxMap<String, int>({});
+```
+  2. kincisi, **Rx** kullanmak ve Darts Generics (dart veri tipleri), Rx<Type> kullanmaktır.
+
+```dart
+final name = Rx<String>('');
+final isLogged = Rx<Bool>(false);
+final count = Rx<Int>(0);
+final balance = Rx<Double>(0.0);
+final number = Rx<Num>(0)
+final items = Rx<List<String>>([]);
+final myMap = Rx<Map<String, int>>({});
+
+//Özel sınıflar - kelimenin tam anlamıyla herhangi bir sınıf olabilir
+final user = Rx<User>();
+```
+  3. Üçüncü, daha pratik, daha kolay ve tercih edilen yaklaşım, değerinizin bir özelliği olarak **".obs"**'u eklemeniz yeterli
+
+```dart
+final name = ''.obs;
+final isLogged = false.obs;
+final count = 0.obs;
+final balance = 0.0.obs;
+final number = 0.obs;
+final items = <String>[].obs;
+final myMap = <String, int>{}.obs;
+
+//Özel sınıflar - kelimenin tam anlamıyla herhangi bir sınıf olabilir
+final user = User().obs;
+```
 
 
 
