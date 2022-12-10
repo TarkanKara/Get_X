@@ -29,8 +29,8 @@
    -  Controllers, Models, Blocs sınıfları MultiProviders aracılığıyla widget ağacına enjekte etmeye gerek yoktur. 
    - Bunun için GetX, kendine özgü dependency injection özelliğini kullanır. 
 
-## Installing
-- [Get'i](https://pub.dev/packages/get#installing) pubspec.yaml dosyanıza ekleyin:
+## [Installing](https://pub.dev/packages/get#installing)
+- Get'i pubspec.yaml dosyanıza ekleyin:
 
 ```dart
 dependencies:
