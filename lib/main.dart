@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
-import 'package:persons_app/views/persons_view.dart';
+import 'package:persons_app/Getx_1_counter/home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
                   primary: Colors.purple, secondary: Colors.blueAccent),
             ),
             title: 'Get Started Mobx',
-            home: const PersonView());
+            home: const Home());
       },
     );
   }
