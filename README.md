@@ -86,6 +86,7 @@ Obx(() => Text("${controller.hello_world}"));
 
 ## Declaring a reactive variable
 * Bir değişkeni **observable** (gözlemlenebilir) hale getirmenin 3 yolu vardır.
+
   1. İlki, **Rx{Type}** kullanmaktır.
 
 ```dart
@@ -125,6 +126,44 @@ final myMap = <String, int>{}.obs;
 //Özel sınıflar - kelimenin tam anlamıyla herhangi bir sınıf olabilir
 final user = User().obs;
 ```
+
+## [Simple State Manager](https://chornthorn.github.io/getx-docs/state-management/simple-state-manager/index)
+* Getx, ChangeNotifier kullanmayan, özellikle Flutter'a yeni başlayanların ihtiyacını karşılayacak, büyük uygulamalar için sorun yaratmayacak, son derece hafif ve kolay bir durum yöneticisine (state manager) sahiptir.
+* **GetBuilder** tam olarak çoklu durum kontrolünü hedefliyor.
+* Bir sepete 30 ürün eklediğinizi, birini sil'e tıkladığınızı, aynı anda listenin güncellendiğini, fiyatın güncellendiğini ve alışveriş sepetindeki toplam fiyatın daha küçük bir sayı ile güncellendiğini düşünün.
+* Bu tür bir yaklaşım, **GetBuilder'ı** öldürücü yapar, çünkü durumları gruplandırır ve bunun için herhangi bir "hesaplama mantığı (computational logic)" olmadan hepsini aynı anda değiştirir.
+* **GetBuilder,** bu tür durumlar göz önünde bulundurularak oluşturuldu, çünkü geçici durum değişikliği için setState'i kullanabilirsiniz ve bunun için bir durum yöneticisine (state manager) ihtiyacınız olmaz.
+* **Advantages**
+  * Yalnızca gerekli widget'ları güncelleyin
+  * changeNotifier kullanmaz, daha az bellek kullanan (0mb'ye yakın) durum yöneticisidir.
+  * StatefulWidget'ı unutun! Getx ile buna asla ihtiyacınız olmayacak. Çünkü **GetBuilder** var.
+  * Stateless widgette bir durumu güncellemek için GetBuilder ile sarmalamamız gerekecek.
+  * **GetBuilder,** tıpkı StatefulWidget gibi **"initState"** özelliğine sahiptir
+  * GetBuilder ayrıca, dispose özelliğine de sahiptir
+
+```dart
+class Controller extends GetxController {
+  int counter = 0;
+  void increment() {
+    counter++;
+    update(); 
+    // increment() metodu çağrıldığında kullanıcı arayüzündeki sayaç değişkenini güncellemek için update() işlevini kullanın
+  }
+}
+
+class OtherClass extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: GetBuilder<Controller>(
+          builder: (s) => Text('${s.counter}'),
+        ),
+      ),
+    );
+  }
+```
+
 
 
 
