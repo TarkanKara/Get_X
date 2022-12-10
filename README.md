@@ -38,7 +38,7 @@ dependencies:
 ```
 
 ## [State Management](https://chornthorn.github.io/getx-docs/state-management/index)
-* GetX, diğer durum yöneticileri gibi Streams veya ChangeNotifier'ı kullanmaz.
+* GetX, diğer state managment gibi Streams veya ChangeNotifier'ı kullanmaz.
 * **Complexity:**
   * GetX ile her event için bir sınıf tanımlamanız gerekmez, kod son derece temiz ve anlaşılırdır ve daha az yazarak çok daha fazlasını yaparsınız.
 * **No code generators:**
@@ -46,13 +46,42 @@ dependencies:
   * Bir değişkeni değiştirmek ve build_runner'ı çalıştırmak zorunda olmak verimsiz olabilir. Bekleme süresi uzun olabiliyor.
   * GetX ile her şey reaktiftir ve hiçbir şey kod oluşturuculara (code generators) bağlı değildir,
 * **It does not depend on context:**
-  * Kelimenin tam anlamıyla hiçbir şey için veriyicontext e göre göndermeniz gerekmez.
+  * Kelimenin tam anlamıyla hiçbir şey için veriyi context e göre göndermeniz gerekmez.
 * **Granular control:**
   * Çoğu state managers ChangeNotifier'a dayalıdır.
   * ChangeNotifier, notifyListeners çağrıldığında ona bağlı olan tüm widget'ları bilgilendirir.
   * Bir ekranda ChangeNotifier sınıfınızın bir değişkenine sahip 40 widget'ınız varsa, birini güncellediğinizde tümü yeniden oluşturulur.
   * GetX ile iç içe geçmiş widget'lara bile saygı duyulur.
-* **It only reconstructs if its variable REALLY changes:**
+* **It only reconstructs if its variable REALLY changes**
 
 ## [Reactive State Manager](https://chornthorn.github.io/getx-docs/state-management/reactive-state-manager/index)
+* GetX'in iki farklı durum yöneticisi vardır: Basit durum yöneticisi **(GetBuilder)** ve reaktif durum yöneticisi **(GetX / Obx)**.
+* GetX, reaktif programlamayı oldukça basit bir hale dönüştürür.
+  * StreamControllers oluşturmak gerekmez
+  * Her değişken için bir StreamBuilder oluşturmak gerekmez. 
+  * Her state için bir sınıf oluşturmak gerekmez. 
+  * Başlangıç ​​değeri için bir get oluşturmak gerekmez.
+  * Kod generators kullanmaya gerek kalmaz
+
+* Bu değişkeni **observable** yani gözlemlenebilir hale getirmek için, sonuna **".obs"** eklememiz yeterlidir.
+
+```dart
+var hello_world = "Hello World".obs;
+```
+* Veri her değiştiğinde Text()'i güncellemek için **Obx** widgeti ile sarmalıyoruz
+
+```dart
+Obx(() => Text("${controller.hello_world}"));
+```
+:bangbang:
+
+* **hello_world** adında bir değişken tanımladık ve değerinin **"Hello World"** olduğunu söyledik. ve **".obs"** ile değişkeni gözlenebilir olduğunu söyledik. bu değişkenin değeri önceki değeri ile aynı olduğu durumda ekranda hiçbir şey değişmeyecek ve **".obx"** yeni değeri yok sayar ve Widgetı yeniden oluşturmaz. **Isn't that amazing?** 
+* Peki, bir **Obx** içinde 5 Rx (gözlemlenebilir) değişkenim varsa ne olur?
+  * Sadece herhangi biri değiştiğinde güncellenecektir.
+* Ve bir sınıfta 30 değişkenim varsa, birini güncellediğimde, o sınıftaki tüm değişkenleri günceller mi?
+  * Hayır, yalnızca o Rx değişkenini kullanan belirli Widget.
+  * Rx değişkeni değeri değiştirdiğinde günceller.
+
+
+
 
