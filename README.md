@@ -265,6 +265,13 @@ class HomePage extends StatelessWidget {
 }
 ```
 
+## [Instancing Method](https://chornthorn.github.io/getx-docs/dependency-management/instancing-method)
+* **Get.put()**
+  * Dependency yönetimi için kullanım durumlarının çoğunu kapsar. **Get.put'u** kullanarak bir dependency injection yaparız. **Get.find** de dahili olarak çağrılır. Yani **Get.put** ile bağımlılık yüklenir ve **Get.find** ile de doğrudan kullanılabilir.
+
+### to be continued
+
+
 
 
 
