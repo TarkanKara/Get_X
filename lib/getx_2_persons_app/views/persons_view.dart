@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:persons_app/model/persons.dart';
-import 'package:persons_app/views_model/persons_controller.dart';
+import 'package:persons_app/getx_2_persons_app/model/persons.dart';
+import 'package:persons_app/getx_2_persons_app/views_model/persons_controller.dart';
+
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:get/get.dart';
 

@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:persons_app/Getx_1_counter/controller.dart';
+import 'package:persons_app/getx_1_counter/controller.dart';
 import 'package:get/get.dart';
 
 class Home extends StatelessWidget {
